@@ -1,97 +1,53 @@
 const inquirer = require('inquirer'); 
-
+const {createOptions, askTvShow, tvQuestions} = require('./examples')
 var questions = [
     {
-      type: 'confirm',
-      name: 'toBeDelivered',
-      message: 'Is this for delivery?',
-      default: false,
+      type: 'input',
+      name: 'managerName',
+      message: 'Manager: Your name?',
+      default: 'Manager',
     },
+
     {
       type: 'input',
-      name: 'phone',
-      message: "What's your phone number?",
-      validate: function (value) {
-        var pass = value.match(
-          /^([01]{1})?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})\s?((?:#|ext\.?\s?|x\.?\s?){1}(?:\d+)?)?$/i
+      name: 'managerEmail',
+      message: 'Manager: Your email?',
+      default: 'manager@gmail.com',
+      validate: function(value){
+        const pass = value.match(
+/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
         );
-        if (pass) {
-          return true;
-        }
-  
-        return 'Please enter a valid phone number';
-      },
+        if(pass){
+          return true
+        } 
+        return 'Please enter a valid email'
+      }
     },
-    {
-      type: 'list',
-      name: 'size',
-      message: 'What size do you need?',
-      choices: ['Large', 'Medium', 'Small'],
-      filter: function (val) {
-        return val.toLowerCase();
-      },
+      {
+      type: 'input',
+      name: 'managerID',
+      message: 'Manager: Your ID?',
+      default: '1234',
     },
+    
     {
       type: 'input',
-      name: 'quantity',
-      message: 'How many do you need?',
-      validate: function (value) {
-        var valid = !isNaN(parseFloat(value));
-        return valid || 'Please enter a number';
-      },
-      filter: Number,
+      name: 'managerOffice',
+      message: 'Manager: Your Office Number?',
+      default: '123456',
     },
-    {
-      type: 'expand',
-      name: 'toppings',
-      message: 'What about the toppings?',
-      choices: [
-        {
-          key: 'p',
-          name: 'Pepperoni and cheese',
-          value: 'PepperoniCheese',
-        },
-        {
-          key: 'a',
-          name: 'All dressed',
-          value: 'alldressed',
-        },
-        {
-          key: 'w',
-          name: 'Hawaiian',
-          value: 'hawaiian',
-        },
-      ],
-    },
-    {
-      type: 'rawlist',
-      name: 'beverage',
-      message: 'You also get a free 2L beverage',
-      choices: ['Pepsi', '7up', 'Coke'],
-    },
-    {
-      type: 'input',
-      name: 'comments',
-      message: 'Any comments on your purchase experience?',
-      default: 'Nope, all good!',
-    },
-    {
-      type: 'list',
-      name: 'prize',
-      message: 'For leaving a comment, you get a freebie',
-      choices: ['cake', 'fries'],
-      when: function (answers) {
-        return answers.comments !== 'Nope, all good!';
-      },
-    },
-  ];
-  
+
+
+
+];
+ function askManagerQuestions(){
+  let answersQuestions = []
   inquirer.prompt(questions).then((answers) => {
-    console.log('\nOrder receipt:');
-    console.log(JSON.stringify(answers, null, '  '));
-  });
-  © 2021 GitHub, Inc.
-  Terms
-  Privacy
-  Security
-  
+   askTvShow();
+    answersQuestions = answers 
+  })
+  // });
+}
+
+askManagerQuestions()
+ 
