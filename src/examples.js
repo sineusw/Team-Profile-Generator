@@ -2,7 +2,7 @@
  * Recursive prompt example
  * Allows user to choose when to exit prompt
  */
-
+const generateHTML = require('./generateHtml.js')
  'use strict';
  //THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
 
@@ -11,7 +11,7 @@
  var inquirer = require('inquirer');
  var output = [];
  
-  var tvQuestions = [
+  var choices = [
     
       {
         type: 'checkbox',
@@ -33,7 +33,6 @@
           if (answer.length < 1) {
             return 'You must choose at least one.';
           }
-          console.log(answer)
           return true;
         },
       },
@@ -66,16 +65,19 @@ var internQuestions = [
 ]
 
 
-   function askTvShow() {
-  inquirer.prompt(tvQuestions).then((answers) => {
+   function askChoice() {
+  inquirer.prompt(choices).then((answers) => {
 
-        
      if(answers.choice[0] === "Create Engineer"){
        createEngineer();
      } else if(answers.choice[0] === "Create Intern"){
        createIntern();
      } else {
-      return "Bye!"
+
+       console.log('Bye!')
+       generateHTML(output)
+      return
+
      }
 
     })
@@ -84,11 +86,16 @@ var internQuestions = [
  
  function createIntern(){
    inquirer.prompt(internQuestions).then(answers => {
-    askTvShow(); 
+    output.push({type: 'intern', ...answers});
+    askChoice(); 
    })
  }
  function createEngineer(){
-   inquirer.prompt(engineerQuestions).then(answers => console.log(answers))
- }
+   inquirer.prompt(engineerQuestions).then(answers => {
+     output.push({type: 'engineer', ...answers})
+     askChoice();
+     
+ })
 
- module.exports = {askTvShow, tvQuestions}
+}
+ module.exports = {askChoice, choices, output}

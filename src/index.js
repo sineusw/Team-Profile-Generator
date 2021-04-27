@@ -1,16 +1,16 @@
 const inquirer = require('inquirer'); 
-const {createOptions, askTvShow, tvQuestions} = require('./examples')
+const {askChoice, choices, output} = require('./examples')
 var questions = [
     {
       type: 'input',
-      name: 'managerName',
+      name: 'name',
       message: 'Manager: Your name?',
       default: 'Manager',
     },
 
     {
       type: 'input',
-      name: 'managerEmail',
+      name: 'email',
       message: 'Manager: Your email?',
       default: 'manager@gmail.com',
       validate: function(value){
@@ -25,14 +25,14 @@ var questions = [
     },
       {
       type: 'input',
-      name: 'managerID',
+      name: 'id',
       message: 'Manager: Your ID?',
       default: '1234',
     },
     
     {
       type: 'input',
-      name: 'managerOffice',
+      name: 'officeNumber',
       message: 'Manager: Your Office Number?',
       default: '123456',
     },
@@ -41,10 +41,9 @@ var questions = [
 
 ];
  function askManagerQuestions(){
-  let answersQuestions = []
   inquirer.prompt(questions).then((answers) => {
-   askTvShow();
-    answersQuestions = answers 
+    output.push({type: 'manager', ...answers})
+   askChoice();
   })
   // });
 }
