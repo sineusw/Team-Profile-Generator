@@ -9,6 +9,7 @@ const generateHTML = require('./generateHtml.js')
 //  WHEN I select the engineer option
 // THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
  var inquirer = require('inquirer');
+
  var output = [];
  
   var choices = [
@@ -48,20 +49,80 @@ const generateHTML = require('./generateHtml.js')
  var engineerQuestions = [
   {
     type: 'input',
-    name: 'engineer Name',
+    name: 'name',
     message: 'Engineer: Your name?',
     default: 'Engineer John',
   },
+  {
+    type: 'input',
+    name: 'email',
+    message: 'Engineer: Your email?',
+    default: 'engineer@gmail.com',
+    validate: function(value){
+      const pass = value.match(
+/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+      );
+      if(pass){
+        return true
+      } 
+      return 'Please enter a valid email'
+    }
+  },
+    {
+    type: 'input',
+    name: 'id',
+    message: 'Engineer: Your ID?',
+    default: '1234',
+  },
+  
+  {
+    type: 'input',
+    name: 'gitHub',
+    message: 'Engineer: Your GitHub Username ?',
+    default: 'johndoe',
+  },
+
+
 
 ];
 
 var internQuestions = [
   {
     type: 'input',
-    name: 'intern name',
+    name: 'name',
     message: 'Intern: Your name?',
     default: 'Intern John',
   },
+  {
+    type: 'input',
+    name: 'email',
+    message: 'Intern: Your email?',
+    default: 'intern@gmail.com',
+    validate: function(value){
+      const pass = value.match(
+/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+      );
+      if(pass){
+        return true
+      } 
+      return 'Please enter a valid email'
+    }
+  },
+    {
+    type: 'input',
+    name: 'id',
+    message: 'Intern: Your ID?',
+    default: '1234',
+  },
+  
+  {
+    type: 'input',
+    name: 'school',
+    message: 'Manager: Your School?',
+    default: 'Harvard',
+  },
+
+
 ]
 
 

@@ -36,7 +36,7 @@ const fileHeader = `<!DOCTYPE html>
     <title>Team</title>
 </head>
 <body>
-dif 
+<div class="container">
 `;
 
 const fileFooter = `
@@ -46,11 +46,18 @@ const fileFooter = `
 
 fs.writeFileSync(teamPath, fileHeader);
 team.forEach(member => {
+    const {info, infoVal} = getInfo(member)
     const teamContent = `
-
-    <div class="column">
           <div class="card">
-          ${member.name}
+        <div class="card-header">
+        <h2>${member.getName()}</h2>
+            <h3>${member.getRole()}</h3>
+            </div>
+            <div class="card-info">
+         <p>ID: <span> ${member.getId()}</span></p> 
+         <p>Email: <span>${member.getEmail()}</span></p>
+            <p>${info}: <span>${infoVal}</span> </p>
+
           </div>
         </div>
     `
@@ -59,6 +66,23 @@ team.forEach(member => {
 
 fs.appendFileSync(teamPath, fileFooter)
 
+}
+
+
+function getInfo(member){
+    let extraInfo = {};
+    const role = member.getRole(); 
+    if(role === 'Manager') {
+        extraInfo.info = 'officeNumber'; 
+        extraInfo.infoVal = member.getOfficeNumber();
+    } else if(role === 'Engineer'){
+        extraInfo.info = 'gitHub'; 
+        extraInfo.infoVal = member.getGithub();
+    } else if(role === 'Intern') {
+        extraInfo.info = 'School'; 
+        extraInfo.infoVal = member.getSchool();
+    }
+    return extraInfo
 }
 
 
